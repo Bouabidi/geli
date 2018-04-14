@@ -12,6 +12,8 @@ export class FreeTextUnit implements IFreeTextUnit {
   __t: string;
   progressable: boolean;
   weight: number;
+  visibleFromDate: string;
+  visible: boolean;
 
   markdown: string;
 

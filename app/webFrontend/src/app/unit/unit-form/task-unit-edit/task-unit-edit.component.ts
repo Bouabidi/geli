@@ -62,6 +62,8 @@ export class TaskUnitEditComponent implements OnInit {
       name: this.generalInfo.form.value.name,
       description: this.generalInfo.form.value.description,
       deadline: this.generalInfo.form.value.deadline,
+      visible: this.generalInfo.form.value.visible,
+      visibleFromDate: this.generalInfo.form.value.visibleFromDate
     };
 
     if (this.isTaskUnitValid()) {
@@ -78,7 +80,7 @@ export class TaskUnitEditComponent implements OnInit {
         (task) => {
           const message = `Task ${this.add ? 'created' : 'updated'}`;
           this.snackBar.open(message, '', {duration: 3000});
-          this.onDone()
+          this.onDone();
           return this.notificationService.createItem(
             {
               changedCourse: this.course,
