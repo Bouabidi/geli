@@ -44,6 +44,8 @@ export class FreeTextUnitFormComponent implements OnInit {
       ...this.model,
       name: this.generalInfo.form.value.name,
       description: this.generalInfo.form.value.description,
+      visible: this.generalInfo.form.value.visible,
+      visibleFromDate: this.generalInfo.form.value.visibleFromDate,
       markdown: this.freeTextEditor.markdown
     };
 
