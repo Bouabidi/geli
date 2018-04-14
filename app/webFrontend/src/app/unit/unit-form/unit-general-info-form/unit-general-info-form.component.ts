@@ -20,9 +20,7 @@ export class UnitGeneralInfoFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [this.model ? this.model.name : '', Validators.required],
       description: [this.model ? this.model.description : '', Validators.required],
-      deadline: [this.model ? this.model.deadline : ''],
-      visibleFromDate: [this.model ? this.model.visibleFromDate : ''],
-      visible: [this.model ? this.model.visible : false]
+      deadline: [this.model ? this.model.deadline : '']
     });
   }
 
@@ -31,9 +29,5 @@ export class UnitGeneralInfoFormComponent implements OnInit {
     // set time to 23:59
     date.setHours(23);
     date.setMinutes(59);
-  }
-
-  onChangeVisible(value) {
-    this.model.visible = value.checked;
   }
 }

@@ -9,7 +9,5 @@ export interface IUnit {
     weight: number;
     updatedAt: string;
     createdAt: string;
-    visibleFromDate: string;
-    visible: boolean;
     __t: string;
 }
