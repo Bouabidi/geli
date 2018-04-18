@@ -14,15 +14,15 @@
   </mat-form-field>
 
   <div>
-    <mat-slide-toggle (change)="onChangeVisible($event)" [checked]="model.visible">
-      <span *ngIf="model.visible">Unit can be seen by students</span>
-      <span *ngIf="!model.visible">Unit cannot be seen by students</span>
+    <mat-slide-toggle (change)="onChangeActive($event)" [checked]="model.visible">
+      <span *ngIf="active">Unit can be seen by students</span>
+      <span *ngIf="!active">Unit cannot be seen by students</span>
     </mat-slide-toggle>
   </div>
 
   <mat-form-field>
-    <input matInput formControlName="visibleFromDate" [matDatepicker]="visibleFromDateDatepicker" placeholder="Students can see this Unit from" [disabled]="model.visible">
-    <mat-datepicker-toggle matSuffix [for]="visibleFromDateDatepicker" [disabled]="model.visible"></mat-datepicker-toggle>
+    <input matInput formControlName="visibleFromDate" [matDatepicker]="visibleFromDateDatepicker" placeholder="Students can see this Unit from">
+    <mat-datepicker-toggle matSuffix [for]="visibleFromDateDatepicker"></mat-datepicker-toggle>
     <mat-datepicker #visibleFromDateDatepicker></mat-datepicker>
   </mat-form-field>
 </form>

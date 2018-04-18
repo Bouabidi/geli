@@ -32,7 +32,7 @@ export class UnitGeneralInfoFormComponent implements OnInit {
     date.setHours(23);
     date.setMinutes(59);
   }
-  onChangeVisible(value) {
-    this.model.visible = value.checked;
+  onChangeActive(value) {
+    this.active = value.checked;
   }
 }
