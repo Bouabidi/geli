@@ -69,7 +69,7 @@ import {TranslateModule} from '@ngx-translate/core';
     UploadFormDialog,
     ChangePasswordDialogComponent,
     PickMediaDialog,
-    TranslateModule,
+    TranslateModule
   ],
   entryComponents: [
     UploadFormDialog,

@@ -8,13 +8,16 @@ import {ITask} from '../../../../../../../shared/models/task/ITask';
 import {Answer} from '../../../models/Answer';
 import {ICourse} from '../../../../../../../shared/models/ICourse';
 import {UnitGeneralInfoFormComponent} from '../unit-general-info-form/unit-general-info-form.component';
+import {IUnit} from "../../../../../../../shared/models/units/IUnit";
+import {UnitFormDetailBase} from '../UnitFormDetailBase';
+
 
 @Component({
   selector: 'app-task-unit-edit',
   templateUrl: './task-unit-edit.component.html',
   styleUrls: ['./task-unit-edit.component.scss']
 })
-export class TaskUnitEditComponent implements OnInit {
+export class TaskUnitEditComponent implements OnInit, UnitFormDetailBase{
   @Input()
   course: ICourse;
 
@@ -63,7 +66,6 @@ export class TaskUnitEditComponent implements OnInit {
       description: this.generalInfo.form.value.description,
       deadline: this.generalInfo.form.value.deadline,
       visible: this.generalInfo.form.value.visible,
-      visibleFromDate: this.generalInfo.form.value.visibleFromDate,
     };
 
     if (this.isTaskUnitValid()) {
@@ -109,36 +111,36 @@ export class TaskUnitEditComponent implements OnInit {
       return false
     } else {
       // Check if all tasks i.e. questions are valid
-      for (const task of taskUnit.tasks) {
-        if (task.name === undefined || task.name.trim() === '') {
-          const message = 'Task not valid: Every question requires some text';
-          this.snackBar.open(message, '', {duration: 3000});
-          return false
-        } else if (task.answers.length < 2) {
-          const message = 'Task not valid: Every question requires at least two answers';
-          this.snackBar.open(message, '', {duration: 3000});
-          return false
-        } else {
-          // Check if answers are valid
-          let noAnswersChecked = true;
+    for (let task of taskUnit.tasks) {
+      if (task.name === undefined || task.name.trim() === '') {
+        const message = 'Task not valid: Every question requires some text';
+        this.snackBar.open(message, '', {duration: 3000});
+        return false
+      } else if (task.answers.length < 2) {
+        const message = 'Task not valid: Every question requires at least two answers';
+        this.snackBar.open(message, '', {duration: 3000});
+        return false
+      } else {
+        // Check if answers are valid
+        let noAnswersChecked = true;
 
-          for (const answer of task.answers) {
-            if (noAnswersChecked) {
-              noAnswersChecked = !answer.value
-            }
-            if (answer.text === undefined || answer.text.trim() === '') {
-              const message = 'Task not valid: Every answer requires some text';
-              this.snackBar.open(message, '', {duration: 3000});
-              return false
-            }
-          }
+        for (const answer of task.answers) {
           if (noAnswersChecked) {
-            const message = 'Task not valid: Every question requires at least one checked answer';
+            noAnswersChecked = !answer.value
+          }
+          if (answer.text === undefined || answer.text.trim() === '') {
+            const message = 'Task not valid: Every answer requires some text';
             this.snackBar.open(message, '', {duration: 3000});
             return false
           }
         }
+        if (noAnswersChecked) {
+          const message = 'Task not valid: Every question requires at least one checked answer';
+          this.snackBar.open(message, '', {duration: 3000});
+          return false
+        }
       }
+    }
     }
     return true
   }
@@ -177,4 +179,16 @@ export class TaskUnitEditComponent implements OnInit {
       this.snackBar.open(message, '', {duration: 3000});
     }
   }
+  addDetailsToSave(unit: IUnit): IUnit {
+    if(this.isTaskUnitValid()){
+      let taskUnit = <ITaskUnit> unit;
+      taskUnit.deadline = this.model.deadline
+      return taskUnit;
+    }else {
+      // Messaging is already done in isTaskUnitValid so we can throw an empty error
+      throw new Error();
+    }
+
+  }
+
 }

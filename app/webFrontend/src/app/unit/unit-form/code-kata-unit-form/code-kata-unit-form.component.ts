@@ -6,6 +6,8 @@ import {ICourse} from '../../../../../../../shared/models/ICourse';
 import {CodeKataUnit} from '../../../models/units/CodeKataUnit';
 import {UnitGeneralInfoFormComponent} from '../unit-general-info-form/unit-general-info-form.component';
 import {AceEditorComponent} from 'ng2-ace-editor';
+import {UnitFormDetailBase} from '../UnitFormDetailBase';
+import {IUnit} from "../../../../../../../shared/models/units/IUnit";
 import 'brace';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
@@ -15,7 +17,7 @@ import 'brace/theme/github';
   templateUrl: './code-kata-unit-form.component.html',
   styleUrls: ['./code-kata-unit-form.component.scss']
 })
-export class CodeKataUnitFormComponent implements OnInit {
+export class CodeKataUnitFormComponent implements OnInit, UnitFormDetailBase {
   @Input() course: ICourse;
   @Input() lectureId: string;
   @Input() model: ICodeKataUnit;
@@ -95,7 +97,6 @@ export class CodeKataUnitFormComponent implements OnInit {
       description: this.generalInfo.form.value.description,
       deadline: this.generalInfo.form.value.deadline,
       visible: this.generalInfo.form.value.visible,
-      visibleFromDate: this.generalInfo.form.value.visibleFromDate
     };
 
     if (this.model._id === undefined) {
@@ -211,6 +212,11 @@ export class CodeKataUnitFormComponent implements OnInit {
     }
 
     return true;
+  }
+
+
+  addDetailsToSave(unit: IUnit): IUnit {
+    return undefined;
   }
 
 }

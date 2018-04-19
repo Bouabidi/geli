@@ -13,7 +13,6 @@ export class FileUnit implements IFileUnit {
   weight: number;
   updatedAt: string;
   createdAt: string;
-  visibleFromDate: string;
   visible: boolean;
 
   files: IFile[] = [];

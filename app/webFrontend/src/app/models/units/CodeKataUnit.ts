@@ -12,7 +12,6 @@ export class CodeKataUnit implements ICodeKataUnit {
   weight: number;
   updatedAt: string;
   createdAt: string;
-  visibleFromDate: string;
   visible: boolean;
 
   definition: string;

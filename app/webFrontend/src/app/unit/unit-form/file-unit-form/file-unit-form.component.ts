@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatSnackBar} from '@angular/material';
 import {ICourse} from '../../../../../../../shared/models/ICourse';
 import {ILecture} from '../../../../../../../shared/models/ILecture';
+import {IUnit} from "../../../../../../../shared/models/units/IUnit";
 import {IFileUnit} from '../../../../../../../shared/models/units/IFileUnit';
 import {UnitGeneralInfoFormComponent} from '../unit-general-info-form/unit-general-info-form.component';
 import {NotificationService, UnitService} from '../../../shared/services/data.service';
@@ -10,13 +11,14 @@ import {ShowProgressService} from '../../../shared/services/show-progress.servic
 import {VideoUnit} from '../../../models/units/VideoUnit';
 import {PickMediaDialog} from '../../../shared/components/pick-media-dialog/pick-media-dialog.component';
 import {IFile} from '../../../../../../../shared/models/mediaManager/IFile';
+import {UnitFormDetailBase} from "../UnitFormDetailBase";
 
 @Component({
   selector: 'app-file-unit-form',
   templateUrl: './file-unit-form.component.html',
   styleUrls: ['./file-unit-form.component.scss']
 })
-export class FileUnitFormComponent implements OnInit {
+export class FileUnitFormComponent implements OnInit, UnitFormDetailBase {
 
   @Input() course: ICourse;
   @Input() lecture: ILecture;
@@ -47,13 +49,12 @@ export class FileUnitFormComponent implements OnInit {
     }
   }
 
-  save() {
+  saveOld() {
     this.model = {
       ...this.model,
       name: this.generalInfo.form.value.name,
       description: this.generalInfo.form.value.description,
       visible: this.generalInfo.form.value.visible,
-      visibleFromDate: this.generalInfo.form.value.visibleFromDate
     };
 
     const reqObj = {
@@ -87,13 +88,6 @@ export class FileUnitFormComponent implements OnInit {
     }
   }
 
-  checkSave() {
-    if (this.generalInfo.form.value.name) {
-      return !(this.model.files.length > 0);
-    } else {
-      return true;
-    }
-  }
 
   async openAddFilesDialog() {
     if (this.course.media === undefined) {
@@ -134,5 +128,9 @@ export class FileUnitFormComponent implements OnInit {
         this.snackBar.open('Added files to unit', '', {duration: 2000});
       }
     });
+  }
+
+  addDetailsToSave(unit: IUnit): IUnit {
+    return undefined;
   }
 }

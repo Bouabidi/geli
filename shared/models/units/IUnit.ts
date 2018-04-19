@@ -10,6 +10,5 @@ export interface IUnit {
     updatedAt: string;
     createdAt: string;
     __t: string;
-    visibleFromDate: string;
     visible: boolean;
 }

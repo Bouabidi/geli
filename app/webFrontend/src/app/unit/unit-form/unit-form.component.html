@@ -1,4 +1,5 @@
 <div class="edit-unit" *ngIf="course">
+  <app-unit-general-info-form [model]="model"></app-unit-general-info-form>
   <app-file-unit-form
     *ngIf="(type == 'video' || type == 'file')"
     [course]="course"
@@ -28,4 +29,5 @@
     [lectureId]="lecture._id"
     [onDone]="onDone"
     [onCancel]="onCancel"></app-free-text-unit-form>
+  <app-button-save-cancel (save)="saveUnit()" (cancel)="onCancel()"></app-button-save-cancel>
 </div>

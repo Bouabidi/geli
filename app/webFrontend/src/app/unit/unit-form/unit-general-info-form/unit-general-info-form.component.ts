@@ -1,17 +1,22 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {UnitFormDetailBase} from '../UnitFormDetailBase';
+import {IUnit} from "../../../../../../../shared/models/units/IUnit";
 
 @Component({
   selector: 'app-unit-general-info-form',
   templateUrl: './unit-general-info-form.component.html',
   styleUrls: ['./unit-general-info-form.component.scss']
 })
-export class UnitGeneralInfoFormComponent implements OnInit {
+
+export class UnitGeneralInfoFormComponent implements OnInit, UnitFormDetailBase {
+
 
   @Input()
   public model: any;
 
   public form: FormGroup;
+  private active: boolean;
 
   constructor(private formBuilder: FormBuilder) {
   }
@@ -20,10 +25,9 @@ export class UnitGeneralInfoFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [this.model ? this.model.name : '', Validators.required],
       description: [this.model ? this.model.description : '', Validators.required],
-      deadline: [this.model ? this.model.deadline : ''],
-      visibleFromDate: [this.model ? this.model.visibleFromDate : ''],
       visible: [this.model ? this.model.visible : false]
     });
+    this.active = this.model.visible;
   }
 
   updateDateTime(date: Date) {
@@ -34,5 +38,15 @@ export class UnitGeneralInfoFormComponent implements OnInit {
   }
   onChangeActive(value) {
     this.active = value.checked;
+    this.model.visible = this.active;
   }
+
+
+  addDetailsToSave(unit: IUnit): IUnit {
+    unit.name = this.form.value.name;
+    unit.description = this.form.value.description;
+    return unit;
+  }
+
+
 }

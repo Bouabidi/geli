@@ -1,11 +1,18 @@
 <div class="task-unit-edit">
-  <strong>Tasks</strong>
 
-  <app-unit-general-info-form [model]="model"></app-unit-general-info-form>
-
+  <p><strong>Tasks</strong></p>
   <mat-hint>
     Add questions with any number of possible answers. Mark the correct answer(s) with the checkbox.
   </mat-hint>
+
+  <div>
+    <mat-form-field *ngIf="model?.progressable">
+      <input matInput formControlName="deadline" [matDatepicker]="deadlineDatepicker" placeholder="Optional deadline">
+      <mat-datepicker-toggle matSuffix [for]="deadlineDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #deadlineDatepicker (selectedChanged)="updateDateTime($event)"></mat-datepicker>
+    </mat-form-field>
+  </div>
+
 
   <div *ngFor="let task of model.tasks" class="question-answer">
     <mat-form-field matLine class="question">
@@ -35,12 +42,9 @@
       </div>
     </div>
   </div>
-
-  <p>
-    <button mat-raised-button (click)="addTask()">
-      <mat-icon>add</mat-icon> Add question
-    </button>
-
-    <app-button-save-cancel (save)="saveUnit()" (cancel)="onCancel()"></app-button-save-cancel>
-  </p>
 </div>
+
+<button mat-raised-button (click)="addTask()">
+  <mat-icon>add</mat-icon> Add question
+</button>
+

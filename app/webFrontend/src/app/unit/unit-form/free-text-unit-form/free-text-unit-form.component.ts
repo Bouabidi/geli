@@ -8,13 +8,15 @@ import {UnitGeneralInfoFormComponent} from '../unit-general-info-form/unit-gener
 import {FreeTextUnitEditorComponent} from './free-text-unit-editor/free-text-unit-editor.component';
 import {FreeTextUnitEditorDialog} from './free-text-unit-editor/free-text-unit-editor-dialog/free-text-unit-editor.dialog';
 import {isUndefined} from 'util';
+import {UnitFormDetailBase} from "../UnitFormDetailBase";
+import {IUnit} from "../../../../../../../shared/models/units/IUnit";
 
 @Component({
   selector: 'app-free-text-unit-form',
   templateUrl: './free-text-unit-form.component.html',
   styleUrls: ['./free-text-unit-form.component.scss']
 })
-export class FreeTextUnitFormComponent implements OnInit {
+export class FreeTextUnitFormComponent implements OnInit, UnitFormDetailBase {
   @Input() course: ICourse;
   @Input() lectureId: string;
   @Input() model: IFreeTextUnit;
@@ -45,7 +47,6 @@ export class FreeTextUnitFormComponent implements OnInit {
       name: this.generalInfo.form.value.name,
       description: this.generalInfo.form.value.description,
       visible: this.generalInfo.form.value.visible,
-      visibleFromDate: this.generalInfo.form.value.visibleFromDate,
       markdown: this.freeTextEditor.markdown
     };
 
@@ -116,5 +117,12 @@ export class FreeTextUnitFormComponent implements OnInit {
 
   private isModelNewObj(): boolean {
     return typeof this.model._id === 'undefined';
+  }
+
+
+  addDetailsToSave(unit: IUnit): IUnit {
+    let textUnit = <FreeTextUnit> unit;
+    textUnit.markdown = this.freeTextEditor.markdown || '';
+    return textUnit;
   }
 }
