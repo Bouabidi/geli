@@ -41,12 +41,9 @@ export class UnitGeneralInfoFormComponent implements OnInit, UnitFormDetailBase 
     this.model.visible = this.active;
   }
 
-
   addDetailsToSave(unit: IUnit): IUnit {
     unit.name = this.form.value.name;
     unit.description = this.form.value.description;
     return unit;
   }
-
-
 }

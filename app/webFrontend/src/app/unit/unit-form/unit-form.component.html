@@ -7,27 +7,31 @@
     [model]="model"
     [fileUnitType]="type"
     [onDone]="onDone"
-    [onCancel]="onCancel"></app-file-unit-form>
+    [onCancel]="onCancel">
+  </app-file-unit-form>
   <app-task-unit-edit
     *ngIf="type == 'task'"
     [course]="course"
     [model]="model"
     [lectureId]="lecture._id"
     [onDone]="onDone"
-    [onCancel]="onCancel"></app-task-unit-edit>
+    [onCancel]="onCancel">
+  </app-task-unit-edit>
   <app-code-kata-unit-form
     *ngIf="type == 'code-kata'"
     [course]="course"
     [model]="model"
     [lectureId]="lecture._id"
     [onDone]="onDone"
-    [onCancel]="onCancel"></app-code-kata-unit-form>
+    [onCancel]="onCancel">
+  </app-code-kata-unit-form>
   <app-free-text-unit-form
     *ngIf="type == 'free-text'"
     [course]="course"
     [model]="model"
     [lectureId]="lecture._id"
     [onDone]="onDone"
-    [onCancel]="onCancel"></app-free-text-unit-form>
+    [onCancel]="onCancel">
+  </app-free-text-unit-form>
   <app-button-save-cancel (save)="saveUnit()" (cancel)="onCancel()"></app-button-save-cancel>
 </div>

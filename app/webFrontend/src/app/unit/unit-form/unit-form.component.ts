@@ -39,11 +39,12 @@ export class UnitFormComponent implements OnInit {
       try {
         unit = detailComponent.addDetailsToSave(unit)
       }catch (error) {
-        //TODO Snackbar
+        this.snackBar.open('Unit is invalid', '', {duration: 3000});
         // cancel saving
         return;
       }
     }
+    console.log(unit.toString());
     let prom = undefined;
     if(UnitFormComponent.isNewUnit(unit)){
       prom = this.unitService.createItem({unit: unit,lectureId: this.lecture._id });
