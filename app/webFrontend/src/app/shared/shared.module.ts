@@ -19,9 +19,16 @@ import {AceEditorModule} from 'ng2-ace-editor';
 import {PickMediaDialog} from './components/pick-media-dialog/pick-media-dialog.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {AdminMarkdownEditComponent} from './components/admin-markdown-edit/admin-markdown-edit.component';
-import {ImprintAndInfoService} from './services/imprint-and-info.service';
 import {UserProfileDialog} from 'app/shared/components/user-profile-dialog/user-profile-dialog.component';
 import {NotfoundComponent} from './components/notfound/notfound.component';
+import {ChatNameInputComponent} from './components/chat-name-input/chat-name-input.component';
+import {InfiniteScrollDirective} from './directives/infinite-scroll.directive';
+import { ShowCommentsDirective } from './directives/show-comments.directive';
+import { CommentsDialogComponent } from './components/comments-dialog/comments-dialog.component';
+import { MessagingComponent } from './components/messaging/messaging.component';
+import { MessagingInputFieldComponent } from './components/messaging-input-field/messaging-input-field.component';
+import { MessageComponent } from './components/message/message.component';
+
 
 @NgModule({
   imports: [
@@ -52,6 +59,14 @@ import {NotfoundComponent} from './components/notfound/notfound.component';
     UserProfileDialog,
     NotfoundComponent,
     UserProfileDialog,
+    MessagingComponent,
+    ChatNameInputComponent,
+    InfiniteScrollDirective,
+    ShowCommentsDirective,
+    CommentsDialogComponent,
+    MessagingComponent,
+    MessagingInputFieldComponent,
+    MessageComponent,
   ],
   exports: [
     GravatarDirective,
@@ -71,11 +86,19 @@ import {NotfoundComponent} from './components/notfound/notfound.component';
     TranslateModule,
     AdminMarkdownEditComponent,
     UserProfileDialog,
+    MessagingComponent,
+    ChatNameInputComponent,
+    InfiniteScrollDirective,
+    ShowCommentsDirective,
   ],
   entryComponents: [
     PickMediaDialog,
     UserProfileDialog,
+    ChatNameInputComponent,
+    CommentsDialogComponent,
+    MessagingComponent
   ],
+  providers: [],
 })
 export class SharedModule {
 }
