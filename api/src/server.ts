@@ -14,6 +14,9 @@ import {RoleAuthorization} from './security/RoleAuthorization';
 import {CurrentUserDecorator} from './security/CurrentUserDecorator';
 import './utilities/FilterErrorHandler';
 
+const argv = require('minimist')(process.argv.slice(2));
+const bodyParser = require( 'body-parser' );
+
 if (config.sentryDsn) {
   Raven.config(config.sentryDsn, {
     environment: 'api',
@@ -28,6 +31,7 @@ if (config.sentryDsn) {
 export class Server {
 
   public app: Express;
+  private subpath: Express;
 
   static setupPassport() {
     passport.use(passportLoginStrategy);
@@ -39,6 +43,8 @@ export class Server {
     (<any>mongoose).Promise = global.Promise;
 
     // mongoose.set('debug', true);
+
+    this.subpath = express();
 
     this.app = createExpressServer({
       routePrefix: '/api',
@@ -56,6 +62,49 @@ export class Server {
 
     // TODO: Needs authentication in the future
     this.app.use('/api/uploads', express.static('uploads'));
+
+    this.app.use(bodyParser());
+    this.app.use('/v1', this.subpath);
+    const swagger = require('swagger-node-express').createNew(this.subpath);
+    this.app.use(express.static('dist'));
+
+    swagger.setApiInfo({
+        title: 'Example2',
+        description: 'API to do something, manage something...',
+        termsOfServiceUrl: '',
+        contact: 'yourname@something.com',
+        license: '',
+        licenseUrl: ''
+    });
+
+    this.app.get('/', function (req: any, res: any) {
+        res.sendFile(__dirname + '/dist/index.html');
+    });
+
+      swagger.configureSwaggerPaths('', 'api-docs', '');
+
+      // Configure the API domain
+      let domain = 'localhost';
+      if (argv.domain !== undefined) {
+          domain = argv.domain;
+      } else {
+          console.log('No --domain=xxx specified, taking default hostname "localhost".');
+      }
+
+      // Configure the API port
+      let port = 8080;
+      if (argv.port !== undefined) {
+          port = argv.port;
+      } else {
+          console.log('No --port=xxx specified, taking default port ' + port + '.');
+      }
+
+      // Set and display the application URL
+      const applicationUrl = 'http://' + domain + ':' + port;
+      console.log('snapJob API running on ' + applicationUrl);
+
+
+      swagger.configure(applicationUrl, '1.0.0');
 
     Server.setupPassport();
     this.app.use(passport.initialize());
