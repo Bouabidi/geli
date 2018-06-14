@@ -9,6 +9,18 @@ import {SnackBarService} from '../../services/snack-bar.service';
     templateUrl: './upload-form.component.html',
     styleUrls: ['./upload-form.component.scss']
 })
+/**
+ * The UploadFormComponent provides a Drag&Drop-Zone but also opens a File-Picker as an onClick-event.
+ *
+ * @example
+ * <app-upload-form [uploadMethod]="'POST'"
+                    [uploadPath]="uploadPath"
+                    [additionalData]="null"
+                    (onFileSelectedChange)="null"
+                    (onFileUploaded)="onFileUploaded($event)"
+                    (onAllUploaded)="onAllUploaded()">
+ </app-upload-form>
+ */
 export class UploadFormComponent implements OnInit, OnChanges {
 
     @Input() uploadPath: string;
@@ -137,6 +149,10 @@ export class UploadFormComponent implements OnInit, OnChanges {
         this.checkMimeTypeOfFile(event);
     }
 
+    /**
+    * Checks if the mimeType of the transmitted file is acceptable
+    * @param event - Upload event that also contains the file
+    */
     checkMimeTypeOfFile(event) {
         if (this.maxFileNumber === 1 && this.fileUploader.queue.length === 0) {
             const fileType = event.target.files[0];
